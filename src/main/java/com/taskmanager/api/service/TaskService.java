@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 
 import com.taskmanager.api.dto.CreateTaskRequest;
 import com.taskmanager.api.dto.TaskResponse;
+import com.taskmanager.api.dto.TaskStatusPatch;
+import com.taskmanager.api.dto.UpdateTaskRequest;
 import com.taskmanager.api.entity.TaskPriority;
 import com.taskmanager.api.entity.TaskStatus;
 
@@ -18,4 +20,10 @@ public interface TaskService {
 
     Page<TaskResponse> listTasks(String q, TaskStatus status, TaskPriority priority, LocalDate dueBefore,
             Pageable pageable);
+
+    TaskResponse updateTask(UUID id, UpdateTaskRequest req);
+
+    TaskResponse updateTaskStatus(UUID id, TaskStatusPatch status);
+
+    void deleteTask(UUID id);
 }
