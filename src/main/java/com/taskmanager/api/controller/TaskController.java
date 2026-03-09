@@ -28,7 +28,6 @@ import com.taskmanager.api.entity.TaskStatus;
 import com.taskmanager.api.service.TaskService;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

@@ -17,7 +17,7 @@ import lombok.Setter;
  * services, mappers, utilities, and configuration classes
  */
 public class CreateTaskRequest {
-    @NotBlank
+    @NotBlank(message = "Title cannot be blank")
     private String title;
 
     private String description;
@@ -27,5 +27,6 @@ public class CreateTaskRequest {
 
     private TaskPriority priority;
 
+    @NotNull(message = "You must provide a due date")
     private LocalDate dueDate;
 }

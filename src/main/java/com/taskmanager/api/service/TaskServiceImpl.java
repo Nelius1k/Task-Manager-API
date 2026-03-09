@@ -18,6 +18,7 @@ import com.taskmanager.api.dto.UpdateTaskRequest;
 import com.taskmanager.api.entity.Task;
 import com.taskmanager.api.entity.TaskPriority;
 import com.taskmanager.api.entity.TaskStatus;
+import com.taskmanager.api.exception.TaskNotFoundException;
 import com.taskmanager.api.mapper.TaskMapper;
 import com.taskmanager.api.repository.TaskRepository;
 import com.taskmanager.api.specification.TaskSpecification;
@@ -49,7 +50,7 @@ public class TaskServiceImpl implements TaskService {
         // If no task exists with the given ID, throw an exception to signal a 404
         // scenario.
         // findById returns an Optional
-        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
         return mapper.toResponse(task);
     }
 

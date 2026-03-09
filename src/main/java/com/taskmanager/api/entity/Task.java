@@ -15,6 +15,7 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,7 +32,6 @@ public class Task {
     @Column(updatable = false, name = "id", nullable = false)
     private UUID id;
 
-    @NotBlank(message = "title cannot be blank")
     @Column(name = "title", nullable = false)
     private String title;
 
