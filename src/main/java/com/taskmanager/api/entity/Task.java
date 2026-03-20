@@ -16,6 +16,7 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,7 +40,7 @@ public class Task {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "status")
     private TaskStatus status;
 
     @Enumerated(EnumType.STRING)
@@ -60,6 +61,12 @@ public class Task {
         Instant now = Instant.now();
         this.createdAt = now;
         this.updatedAt = now;
+
+        if (this.priority == null)
+            this.priority = TaskPriority.MEDIUM;
+
+        if (this.status == null)
+            this.status = TaskStatus.TODO;
     }
 
     @PreUpdate

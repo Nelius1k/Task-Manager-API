@@ -19,6 +19,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.taskmanager.api.dto.ErrorResponse;
@@ -47,6 +48,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(
                 new ErrorResponse("SERVER_ERROR", "An unexpected error occurred", null),
                 HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InvalidTaskException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidTaskException(InvalidTaskException ex) {
+
+        ErrorResponse error = new ErrorResponse("BAD_REQUEST", ex.getMessage(), null);
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    // Handles invalid query parameters that send a
+    // MethodArgumentTypeMismatchException
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException ex) {
+
+        return new ResponseEntity<>(
+                new ErrorResponse("BAD_REQUEST", "The " + ex
+                        .getName() + " - " + ex.getValue() + " is invalid.", null),
+                HttpStatus.BAD_REQUEST);
+
     }
 
     @Override
@@ -115,7 +137,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 // log.info("Enum mismatch detected for field: {}", fieldName);
 
                 return new ResponseEntity<>(new ErrorResponse("BAD_REQUEST",
-                        "Invalid request", fields),
+                        "The input " + cause.getValue() + " is invalid.",
+                        fields),
                         HttpStatus.BAD_REQUEST);
 
             }
@@ -131,7 +154,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.info("Most specific cause: {}", root.getClass().getName());
 
         // let other mismatches fall back to generic handling
-        return new ResponseEntity<>(new ErrorResponse("BAD_REQUEST", ex.getMessage(),
+        return new ResponseEntity<>(new ErrorResponse("BAD_REQUEST", "Invalid input",
                 null), HttpStatus.BAD_REQUEST);
     }
 

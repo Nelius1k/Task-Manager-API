@@ -1,7 +1,9 @@
 package com.taskmanager.api.service;
 
 import java.lang.StackWalker.Option;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,6 +20,7 @@ import com.taskmanager.api.dto.UpdateTaskRequest;
 import com.taskmanager.api.entity.Task;
 import com.taskmanager.api.entity.TaskPriority;
 import com.taskmanager.api.entity.TaskStatus;
+import com.taskmanager.api.exception.InvalidTaskException;
 import com.taskmanager.api.exception.TaskNotFoundException;
 import com.taskmanager.api.mapper.TaskMapper;
 import com.taskmanager.api.repository.TaskRepository;
@@ -35,6 +38,14 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskResponse createTask(CreateTaskRequest req) {
 
+        if (req.getDueDate().isBefore(LocalDate.now()))
+            throw new InvalidTaskException("Due date cannot be in the past");
+
+        if (req.getPriority() == null)
+            req.setPriority(TaskPriority.MEDIUM);
+
+        if (req.getStatus() == null)
+            req.setStatus(TaskStatus.TODO);
         // Convert request DTO into entity
         Task task = mapper.toEntity(req);
         // Persist entity
@@ -94,7 +105,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskResponse updateTaskStatus(UUID id, TaskStatusPatch statusUpdate) {
 
-        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
 
         task.setStatus(statusUpdate.getStatus());
 
@@ -105,6 +116,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteTask(UUID id) {
+
+        taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
         taskRepository.deleteById(id);
     }
 }

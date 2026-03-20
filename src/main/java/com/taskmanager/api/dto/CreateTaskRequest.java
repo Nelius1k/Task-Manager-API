@@ -22,7 +22,6 @@ public class CreateTaskRequest {
 
     private String description;
 
-    @NotNull
     private TaskStatus status;
 
     private TaskPriority priority;
