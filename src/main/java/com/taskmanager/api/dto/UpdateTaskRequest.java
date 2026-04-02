@@ -6,6 +6,7 @@ import com.taskmanager.api.entity.TaskPriority;
 import com.taskmanager.api.entity.TaskStatus;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,10 +23,13 @@ public class UpdateTaskRequest {
 
     private String description;
 
+    @NotNull(message = "Status is required")
     private TaskStatus status;
 
+    @NotNull(message = "Priority is required")
     private TaskPriority priority;
 
+    @NotNull(message = "Priority is required")
     private LocalDate dueDate;
 
 }

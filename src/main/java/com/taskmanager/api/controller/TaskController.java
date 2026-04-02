@@ -79,7 +79,8 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<TaskResponse> updateTaskStatus(@PathVariable UUID id, @RequestBody TaskStatusPatch status) {
+    public ResponseEntity<TaskResponse> updateTaskStatus(@PathVariable UUID id,
+            @Valid @RequestBody TaskStatusPatch status) {
 
         return new ResponseEntity<>(taskService.updateTaskStatus(id, status), HttpStatus.OK);
     }

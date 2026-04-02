@@ -87,8 +87,21 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskResponse updateTask(UUID id, UpdateTaskRequest req) {
 
+        // if (req.getStatus() == null)
+        // throw new InvalidTaskException("Status is required");
+
+        // if (req.getPriority() == null) {
+        // throw new InvalidTaskException("Priority is required");
+        // }
+
+        // if (req.getDueDate() == null)
+        // throw new InvalidTaskException("Due date is required");
+
+        if (req.getDueDate().isBefore(LocalDate.now()))
+            throw new InvalidTaskException("Due date cannot be in the past");
+
         // Optional<Task> task = taskRepository.findById(id);
-        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+        Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
 
         // update the task fields
         task.setTitle(req.getTitle());
