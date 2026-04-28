@@ -151,12 +151,6 @@ To stop the containers:
 docker compose down
 ```
 
-### Running Tests
-
-```bash
-mvn test
-```
-
 ## Future Improvements
 
 - Add authentication and authorization
