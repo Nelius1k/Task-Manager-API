@@ -133,6 +133,24 @@ spring.datasource.password=your_password
 mvn spring-boot:run
 ```
 
+### Run with Docker
+
+```bash
+docker compose up --build
+```
+
+The API will be available at:
+
+```http
+http://localhost:8080
+```
+
+To stop the containers:
+
+```bash
+docker compose down
+```
+
 ### Running Tests
 
 ```bash
@@ -141,9 +159,10 @@ mvn test
 
 ## Future Improvements
 
-- Kafka integration for event-driven processing
-- AWS deployment
-- Docker containerization
-- Kubernetes orchestration
-- Integration testing
-- Authentication and authorization
+- Add authentication and authorization
+- Add integration tests with Testcontainers
+- Add API documentation with Swagger/OpenAPI
+- Add CI/CD pipeline
+- Add AWS deployment
+- Add Kubernetes orchestration
+- Add Kafka integration for event-driven processing
