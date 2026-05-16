@@ -145,6 +145,20 @@ The API will be available at:
 http://localhost:8080
 ```
 
+### Swagger UI
+
+After starting the application, open Swagger UI in a browser:
+
+```http
+http://localhost:8080/swagger-ui/index.html
+```
+
+The generated OpenAPI document is available at:
+
+```http
+http://localhost:8080/v3/api-docs
+```
+
 To stop the containers:
 
 ```bash
@@ -155,7 +169,6 @@ docker compose down
 
 - Add authentication and authorization
 - Add integration tests with Testcontainers
-- Add API documentation with Swagger/OpenAPI
 - Add CI/CD pipeline
 - Add AWS deployment
 - Add Kubernetes orchestration
