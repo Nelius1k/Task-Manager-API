@@ -26,19 +26,12 @@ jobs:
           POSTGRES_PASSWORD: password123
         
         ports: 
-          - 5434:5432
+          - 5432:5432
         
         options: >-
-          # Check if Postgres can accept connections
           --health-cmd pg_isready
-
-          # Rery every 10 seconds
           --health-interval 10s
-
-          # Wait max 5 seconds for each check
           --health-timeout 5s
-
-          # Try 5 times before declaring failure
           --health-retries 5
 
     steps:
