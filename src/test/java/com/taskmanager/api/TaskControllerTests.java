@@ -171,7 +171,7 @@ class TaskControllerTests {
                                 .andExpect(jsonPath("$.description").value("I will buy rice, bread, and avocados"))
                                 .andExpect(jsonPath("$.status").value("TODO"))
                                 .andExpect(jsonPath("$.priority").value("HIGH"))
-                                .andExpect(jsonPath("$.dueDate").value("2026-03-15"));
+                                .andExpect(jsonPath("$.dueDate").value(LocalDate.now().plusDays(2).toString()));
         }
 
         @Test
