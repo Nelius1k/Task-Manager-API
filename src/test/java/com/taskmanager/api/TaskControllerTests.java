@@ -156,7 +156,7 @@ class TaskControllerTests {
                 task.setDescription("I will buy rice, bread, and avocados");
                 task.setStatus(TaskStatus.TODO);
                 task.setPriority(TaskPriority.HIGH);
-                task.setDueDate(LocalDate.of(2026, 03, 15));
+                task.setDueDate(LocalDate.now().plusDays(2));
 
                 // mock the service
                 when(taskService.getTask(id)).thenReturn(task);
