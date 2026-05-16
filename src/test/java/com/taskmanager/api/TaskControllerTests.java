@@ -69,7 +69,7 @@ class TaskControllerTests {
                 taskRequest.setDescription("I will travel Asia first, then explore Europe and Africa.");
                 taskRequest.setStatus(TaskStatus.IN_PROGRESS);
                 taskRequest.setPriority(TaskPriority.HIGH);
-                taskRequest.setDueDate(LocalDate.of(2026, 03, 15));
+                taskRequest.setDueDate(LocalDate.now().plusDays(4));
 
                 // Convert the DTO to a String
                 String req = objectMapper.writeValueAsString(taskRequest);
@@ -91,7 +91,7 @@ class TaskControllerTests {
                 taskRequest.setDescription("I will play basketball for 2 hours");
                 taskRequest.setStatus(TaskStatus.TODO);
                 taskRequest.setPriority(TaskPriority.HIGH);
-                taskRequest.setDueDate(LocalDate.of(2026, 03, 15));
+                taskRequest.setDueDate(LocalDate.now().plusDays(4));
 
                 // Convert the DTO to a String
                 String req = objectMapper.writeValueAsString(taskRequest);
@@ -279,7 +279,7 @@ class TaskControllerTests {
                 task.setDescription("I will buy rice, bread, and avocados");
                 task.setStatus(TaskStatus.TODO);
                 task.setPriority(TaskPriority.HIGH);
-                task.setDueDate(LocalDate.of(2026, 03, 15));
+                task.setDueDate(LocalDate.now().plusDays(4));
 
                 // Convert the request DTO into JSON because MockMvc sends HTTP requests as JSON
                 String taskRequest = objectMapper.writeValueAsString(task);
@@ -291,7 +291,7 @@ class TaskControllerTests {
                 updatedTask.setDescription("I will buy rice, bread, avocados, juice, and milk");
                 updatedTask.setStatus(TaskStatus.IN_PROGRESS);
                 updatedTask.setPriority(TaskPriority.HIGH);
-                updatedTask.setDueDate(LocalDate.of(2026, 03, 15));
+                updatedTask.setDueDate(LocalDate.now().plusDays(4));
 
                 // Mock the service call so that when the controller calls updateTask(...)
                 // the mocked service returns the updated task instead of executing real logic
@@ -418,7 +418,7 @@ class TaskControllerTests {
                 updatedTask.setDescription("I will buy rice, bread, and avocados");
                 updatedTask.setStatus(TaskStatus.IN_PROGRESS);
                 updatedTask.setPriority(TaskPriority.HIGH);
-                updatedTask.setDueDate(LocalDate.of(2026, 03, 15));
+                updatedTask.setDueDate(LocalDate.now().plusDays(4));
 
                 when(taskService.updateTaskStatus(eq(id), any(TaskStatusPatch.class))).thenReturn(updatedTask);
 
